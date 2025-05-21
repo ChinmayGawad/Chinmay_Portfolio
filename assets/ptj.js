@@ -177,3 +177,71 @@ themeButton.addEventListener("click", () => {
   localStorage.setItem("selected-theme", getCurrentTheme());
   localStorage.setItem("selected-icon", getCurrentIcon());
 });
+
+// ========== QUOTE FEATURE =============
+// ...existing code...
+const localQuotes = [
+  { content: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+  { content: "Success is not the key to happiness. Happiness is the key to success.", author: "Albert Schweitzer" },
+  { content: "Don’t watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+  { content: "Opportunities don't happen, you create them.", author: "Chris Grosser" },
+  { content: "The future depends on what you do today.", author: "Mahatma Gandhi" },
+  { content: "It always seems impossible until it’s done.", author: "Nelson Mandela" },
+  { content: "Believe you can and you’re halfway there.", author: "Theodore Roosevelt" },
+  { content: "Act as if what you do makes a difference. It does.", author: "William James" },
+  { content: "Quality is not an act, it is a habit.", author: "Aristotle" },
+  { content: "The best way to predict the future is to create it.", author: "Peter Drucker" },
+  { content: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
+  { content: "Strive not to be a success, but rather to be of value.", author: "Albert Einstein" },
+  { content: "What you get by achieving your goals is not as important as what you become by achieving your goals.", author: "Zig Ziglar" },
+  { content: "Dream big and dare to fail.", author: "Norman Vaughan" },
+  { content: "If you want to lift yourself up, lift up someone else.", author: "Booker T. Washington" },
+  { content: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau" },
+  { content: "Don’t be afraid to give up the good to go for the great.", author: "John D. Rockefeller" },
+  { content: "I find that the harder I work, the more luck I seem to have.", author: "Thomas Jefferson" },
+  { content: "Success is walking from failure to failure with no loss of enthusiasm.", author: "Winston Churchill" },
+  { content: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
+  { content: "The road to success and the road to failure are almost exactly the same.", author: "Colin R. Davis" },
+  { content: "Opportunities are usually disguised as hard work, so most people don’t recognize them.", author: "Ann Landers" },
+  { content: "Don’t be distracted by criticism. Remember—the only taste of success some people get is to take a bite out of you.", author: "Zig Ziglar" },
+  { content: "The secret of success is to do the common thing uncommonly well.", author: "John D. Rockefeller Jr." },
+  { content: "You miss 100% of the shots you don’t take.", author: "Wayne Gretzky" },
+  { content: "I never dreamed about success. I worked for it.", author: "Estée Lauder" },
+  { content: "Success is not in what you have, but who you are.", author: "Bo Bennett" },
+  { content: "The harder you work for something, the greater you’ll feel when you achieve it.", author: "Unknown" },
+  { content: "Push yourself, because no one else is going to do it for you.", author: "Unknown" }
+];
+// ...existing code...
+let currentQuoteIndex = 0;
+
+function displayQuote() {
+  const quoteDiv = document.getElementById('quote');
+  if (quoteDiv && localQuotes.length > 0) {
+    const q = localQuotes[currentQuoteIndex];
+    quoteDiv.innerHTML = `<span style="font-size:1.1em;">“${q.content}”</span><br><span style="font-size:0.95em; color:var(--text-color-light, #888);">— ${q.author}</span>`;
+  }
+}
+
+function showNextQuote() {
+  if (localQuotes.length > 0) {
+    currentQuoteIndex = (currentQuoteIndex + 1) % localQuotes.length;
+    displayQuote();
+  }
+}
+
+function displayRandomQuote() {
+  if (localQuotes.length > 0) {
+    // Pick a random index different from the current one
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * localQuotes.length);
+    } while (randomIndex === currentQuoteIndex && localQuotes.length > 1);
+    currentQuoteIndex = randomIndex;
+    displayQuote();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  displayQuote();
+  setInterval(displayRandomQuote, 5000); // Change quote every 5   seconds
+});
